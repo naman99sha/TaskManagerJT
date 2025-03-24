@@ -1,5 +1,9 @@
 from .models import User, Task
-from .serializers import TaskSerializer, TaskCreateSerializer, TaskAssignSerializer
+from .serializers import (
+    TaskSerializer,
+    TaskCreateSerializer,
+    TaskAssignSerializer
+)
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -19,6 +23,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+    # only assign when the user is authenticated
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def assign(self, request, pk=None):
         task = get_object_or_404(Task, pk=pk)
@@ -30,6 +35,7 @@ class TaskViewSet(viewsets.ModelViewSet):
             return Response({'status': 'Users assigned successfully'})
         return Response(serializer.errors, status=400)
 
+    # only show the task assigned to the current authenticated user
     @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def my_tasks(self, request):
         tasks = Task.objects.filter(assigned_users=request.user)

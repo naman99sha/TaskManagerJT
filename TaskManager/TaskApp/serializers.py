@@ -1,5 +1,5 @@
 from .models import User, Task
-from rest_framework import serializers, viewsets, permissions
+from rest_framework import serializers
 
 
 

@@ -1,7 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import (
+    AbstractUser,
+    Group,
+    Permission
+)
 
 # User Model
+# Extends built in django user model for ease of authentication
 class User(AbstractUser):
     mobile = models.CharField(max_length=15, unique=True, null=True, blank=True)
     groups = models.ManyToManyField(Group, related_name="custom_user_groups", blank=True)
