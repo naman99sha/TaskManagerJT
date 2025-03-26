@@ -9,8 +9,8 @@ from django.contrib.auth.models import (
 # Extends built in django user model for ease of authentication
 class User(AbstractUser):
     mobile = models.CharField(max_length=15, unique=True, null=True, blank=True)
-    groups = models.ManyToManyField(Group, related_name="custom_user_groups", blank=True)
-    user_permissions = models.ManyToManyField(Permission, related_name="custom_user_permissions", blank=True)
+    # groups = models.ManyToManyField(Group, related_name="custom_user_groups", blank=True)
+    # user_permissions = models.ManyToManyField(Permission, related_name="custom_user_permissions", blank=True)
 
 # Task Model
 class Task(models.Model):
